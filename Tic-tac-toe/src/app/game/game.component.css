@@ -1,7 +1,52 @@
+
 .player-information {
     margin-top: 30px;
     margin-left: 30px;
+    font-size: 20px;
 }
 .start-button {
     margin-left: 30px;
+}
+.game-container {
+    text-align: center;
+}
+.gamefield {
+    text-align: center;
+    display: inline-block;
+}
+.gamefield .row {
+    display: flex;
+    border: 2px solid black;
+}
+.gamefield .subfield {
+    width: 150px;
+    height: 150px;
+    border: 2px solid black;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+}
+.gamefield .subfield .player-one {
+    width: 150px;
+    height: 150px;
+    border: 2px solid black;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+    background: green;
+}
+.gamefield .subfield .player-two {
+    width: 150px;
+    height: 150px;
+    border: 2px solid black;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+    background: red;
 }

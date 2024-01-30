@@ -1,25 +1,26 @@
 <div class="main-container">
     <h1 style="font-weight: 900; text-align: center; margin: 15px 0;">Tic-Tac-Toe</h1>
-    <div class="button-container">
-        <button mat-raised-button color="accent" class="start-button">Start new game</button>
+    <div *ngIf="this.game.gameStatus === 0" class="button-container">
+        <button (click)="startGame()" mat-raised-button color="accent" class="start-button">Start new game</button>
     </div>
-    <div class="player-information">Player ... turn.</div>
+    
     <div class="game-container">
+        <p class="player-information">Start the game</p>
         <div class="gamefield">
-            <div class="row-top">
-                <div class="subfield-left"></div>
-                <div class="subfield-middle"></div>
-                <div class="subfield-right"></div>
+            <div class="row">
+                <div (click)="clickSubfield($event)" position="0" class="subfield"></div>
+                <div (click)="clickSubfield($event)" position="1" class="subfield"></div>
+                <div (click)="clickSubfield($event)" position="2" class="subfield"></div>
             </div>
-            <div class="row-middle">
-                <div class="subfield-left"></div>
-                <div class="subfield-middle"></div>
-                <div class="subfield-right"></div>
+            <div class="row">
+                <div (click)="clickSubfield($event)" position="3" class="subfield"></div>
+                <div (click)="clickSubfield($event)" position="4" class="subfield"></div>
+                <div (click)="clickSubfield($event)" position="5" class="subfield"></div>
             </div>
-            <div class="row-bottom">
-                <div class="subfield-left"></div>
-                <div class="subfield-middle"></div>
-                <div class="subfield-right"></div>
+            <div class="row">
+                <div (click)="clickSubfield($event)" position="6" class="subfield"></div>
+                <div (click)="clickSubfield($event)" position="7" class="subfield"></div>
+                <div (click)="clickSubfield($event)" position="8" class="subfield"></div>
             </div>
         </div>
     </div>
