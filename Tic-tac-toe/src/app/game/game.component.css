@@ -28,7 +28,7 @@
     justify-content: center;
     font-size: 2em;
 }
-.gamefield .subfield .player-one {
+.subfield.player-one {
     width: 150px;
     height: 150px;
     border: 2px solid black;
@@ -37,9 +37,9 @@
     align-items: center;
     justify-content: center;
     font-size: 2em;
-    background: green;
+    background-color: green;
 }
-.gamefield .subfield .player-two {
+.subfield.player-two {
     width: 150px;
     height: 150px;
     border: 2px solid black;
@@ -48,5 +48,5 @@
     align-items: center;
     justify-content: center;
     font-size: 2em;
-    background: red;
+    background-color: red;
 }
