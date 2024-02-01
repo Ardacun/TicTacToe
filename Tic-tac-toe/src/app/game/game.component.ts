@@ -38,9 +38,25 @@ export class GameComponent {
     const color = this.game.getPlayerColorClass();
     subfield.currentTarget.classList.add(color);
     
-    await this.game.checkGameEndWinner();
-
-    await this.game.checkGameEndFull();
+    await this.game.checkGameEndWinner().then( (end: boolean) => {
+      if(this.game.gameStatus === 0 && end)
+      {
+        console.log(playerinformation);
+        if(playerinformation) 
+        { 
+          playerinformation.innerHTML = "Winner is player " + this.game.currentTurn + ".";
+        }
+      }
+    });
+    await this.game.checkGameEndFull().then( (end: boolean) => {
+      if(this.game.gameStatus === 0 && end)
+      {
+        if(playerinformation) 
+        { 
+          playerinformation.innerHTML = "No winner, draw.";
+        }
+      }
+    });
 
     this.game.changePlayer();
 

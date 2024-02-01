@@ -7,6 +7,28 @@ export class Game {
 
     gameStatus: Gamestatus;
 
+    winSituationsPlayerOne: Array<Array<number>> = [
+        [1, 1, 1, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 1, 1, 1, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 1, 1, 1],
+        [1, 0, 0, 1, 0, 0, 1, 0, 0],
+        [0, 1, 0, 0, 1, 0, 0, 1, 0],
+        [0, 0, 1, 0, 0, 1, 0, 0, 1],
+        [0, 0, 1, 0, 1, 0, 1, 0, 0],
+        [1, 0, 0, 0, 1, 0, 0, 0, 1],
+    ];
+
+    winSituationsPlayerTwo: Array<Array<number>> = [
+        [2, 2, 2, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 2, 2, 2, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 2, 2, 2],
+        [2, 0, 0, 2, 0, 0, 2, 0, 0],
+        [0, 2, 0, 0, 2, 0, 0, 2, 0],
+        [0, 0, 2, 0, 0, 2, 0, 0, 2],
+        [0, 0, 2, 0, 2, 0, 2, 0, 0],
+        [2, 0, 0, 0, 2, 0, 0, 0, 2],
+    ];
+
     public constructor() {
         this.gameStatus = Gamestatus.STOP;
         this.gameField = [0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -40,12 +62,55 @@ export class Game {
         {
             isFull = false;
         }
-        return isFull;    
+        if(isFull)
+        {
+            this.gameEnd();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    gameEnd() : void {
+        this.gameStatus = Gamestatus.STOP;
+    }
+
+    arrayEquals(a: Array<any>, b: Array<any>): boolean {
+        return Array.isArray(a) && Array.isArray(b) && a.length === b.length && a.every((value, index) => value === b[index]); 
     }
 
     async checkGameEndWinner(): Promise<boolean> {
-        //TO-DO
-        let isWinner = true;
-        return isWinner;
+        let isWinner = false;
+
+        const checkarray = (this.currentTurn === 1) ? this.winSituationsPlayerOne : this.winSituationsPlayerTwo;
+        
+        const currentarray:any[] = [];
+
+        this.gameField.forEach((subfield, index) => {
+            if ( subfield !== this.currentTurn ) {
+                currentarray[index] = 0;
+            } else {
+                currentarray[index] = subfield;
+            }
+        });
+        checkarray.forEach((checkfield, checkindex) => {
+            if ( this.arrayEquals(checkfield, currentarray)  ) {
+                isWinner = true;
+            } 
+        });
+
+        console.log(currentarray);
+
+        if(isWinner)
+        {
+            this.gameEnd();
+            console.log("winner");
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

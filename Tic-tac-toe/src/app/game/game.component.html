@@ -3,9 +3,8 @@
     <div *ngIf="this.game.gameStatus === 0" class="button-container">
         <button (click)="startGame()" mat-raised-button color="accent" class="start-button">Start new game</button>
     </div>
-    
-    <div class="game-container">
-        <p class="player-information">Start the game</p>
+    <p class="player-information">Start the game</p>
+    <div *ngIf="this.game.gameStatus === 1" class="game-container">
         <div class="gamefield">
             <div class="row">
                 <div (click)="clickSubfield($event)" position="0" class="subfield"></div>
