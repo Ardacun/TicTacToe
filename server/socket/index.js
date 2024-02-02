@@ -5,6 +5,7 @@ module.exports = (io) => {
 
     io.on('connection', socket => {
 
+        // Confirm new connection
         console.log('new connection'); 
         
         // Event handler for when a player joins a room
@@ -23,6 +24,7 @@ module.exports = (io) => {
         if (room.players.length === 2) {
             io.to(roomId).emit('startGame');
         }
+        });
 
         // Event handler for when a player makes a move
         socket.on('makeMove', (roomId, move) => {
@@ -46,6 +48,4 @@ module.exports = (io) => {
         });
     });
 	
-
-	})
 }

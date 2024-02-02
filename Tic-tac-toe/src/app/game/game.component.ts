@@ -20,9 +20,14 @@ export class GameComponent {
   }
 
   //ngOnInit(): void { }
+  joinGame(): void {
+    this.websocketService.joinRoom("1");
+    this.websocketService.onStartGame(() => {
+      this.startGame(true);
+    })  
+  }
 
-  startGame(): void {
-    this.websocketService.connectSocket("message");
+  startGame(online : boolean): void {
     this.game.gameStart();
     const currentPlayer = 'Current turn: Player ' + this.game.currentTurn + '.';
     const playerinformation = document.querySelector('.player-information');

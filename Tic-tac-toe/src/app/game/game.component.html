@@ -1,8 +1,9 @@
 <div class="main-container">
     <h1 style="font-weight: 900; text-align: center; margin: 15px 0;">Tic-Tac-Toe</h1>
     <div *ngIf="this.game.gameStatus === 0" class="button-container">
-        <button (click)="startGame()" mat-raised-button color="accent" class="start-button">Start new game in offline mode</button>
-        <button (click)="startGame()" mat-raised-button color="accent" class="start-button">Start new game in online mode</button>
+        <button (click)="startGame(false)" mat-raised-button color="accent" class="start-button">Start new game in offline mode</button>
+        <button (click)="joinGame()" mat-raised-button color="accent" class="start-button">Start new game in online mode</button>
+        <div id="loading"></div>
     </div>
     <p class="player-information">Start the game</p>
     <div *ngIf="this.game.gameStatus === 1" class="game-container">

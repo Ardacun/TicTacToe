@@ -29,4 +29,25 @@ export class WebSocketService {
  disconnectSocket() {
   this.webSocket.disconnect();
  }
+
+ // Method to join a room
+ joinRoom(roomId: string) {
+   this.webSocket.emit('join', roomId);
+ }
+
+ // Method to make a move in a room
+ makeMove(roomId: string, move: any) {
+   this.webSocket.emit('makeMove', roomId, move);
+ }
+
+ // Event handler for when a game starts in a room
+ onStartGame(callback: () => void) {
+   this.webSocket.on('startGame', callback);
+ }
+
+ // Event handler for when a move is made in a room
+ onMoveMade(callback: (move: any) => void) {
+   this.webSocket.on('moveMade', callback);
+ }
 }
+
