@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { Game } from '../game';
+import { WebSocketService } from '../services/web-socket.service';
 
 @Component({
   selector: 'app-game',
@@ -12,7 +13,8 @@ import { Game } from '../game';
   providers: [Game]
 })
 export class GameComponent {
-  constructor(public game : Game)
+  constructor(public game : Game,
+    private websocketService: WebSocketService)
   {
 
   }
@@ -20,6 +22,7 @@ export class GameComponent {
   //ngOnInit(): void { }
 
   startGame(): void {
+    this.websocketService.connectSocket("message");
     this.game.gameStart();
     const currentPlayer = 'Current turn: Player ' + this.game.currentTurn + '.';
     const playerinformation = document.querySelector('.player-information');
