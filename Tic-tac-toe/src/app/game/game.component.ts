@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { Game } from '../game';
@@ -12,19 +12,55 @@ import { WebSocketService } from '../services/web-socket.service';
   styleUrl: './game.component.css',
   providers: [Game]
 })
-export class GameComponent {
+export class GameComponent implements OnInit{
+  
+  existingRooms: { roomId: string, players: Array<string> }[] = [];
+  isButtonDisabled: boolean = true;
+
   constructor(public game : Game,
     private websocketService: WebSocketService)
   {
-
+   
   }
 
-  //ngOnInit(): void { }
-  joinGame(): void {
-    this.websocketService.joinRoom("1");
-    this.websocketService.onStartGame(() => {
+  ngOnInit(): void {
+    // Request the list of existing rooms with player counts from the server
+    this.websocketService.getRooms().subscribe((rooms: { roomId: string, players: Array<string> }[]) => {
+      this.existingRooms = rooms;
+    });
+  }
+
+  onInput(value: string): void {
+    this.isButtonDisabled = value.trim() === '';
+  }
+
+  joinGame(name: string): void {
+    if(this.existingRooms.length == 0)
+    {
+      this.websocketService.joinRoom(name, "");
+      this.websocketService.onStartGame(() => {
+        this.startGame(true);
+      });
+    }
+    else
+    {
+      let room = "";
+      for(const element of this.existingRooms)
+      {
+        if(element.players.length < 2 || element.players.length == undefined)
+        {
+          room = element.roomId;
+          break;
+        } 
+      }
+      this.websocketService.joinRoom(name, room);
+      this.websocketService.onStartGame(() => {
       this.startGame(true);
-    })  
+      });
+    }
+    
+    
+      
   }
 
   startGame(online : boolean): void {

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -31,8 +32,8 @@ export class WebSocketService {
  }
 
  // Method to join a room
- joinRoom(roomId: string) {
-   this.webSocket.emit('join', roomId);
+ joinRoom(playerName: string, roomId: string): void {
+   this.webSocket.emit('join', {playerName, roomId});
  }
 
  // Method to make a move in a room
@@ -49,5 +50,17 @@ export class WebSocketService {
  onMoveMade(callback: (move: any) => void) {
    this.webSocket.on('moveMade', callback);
  }
+
+ getRooms(): Observable<{ roomId: string, players: Array<string> }[]> {
+  // Emit a request to the server to get the list of existing rooms with player counts
+  this.webSocket.emit('getRooms');
+
+  // Return an observable to listen for the response
+  return new Observable((observer) => {
+    this.webSocket.on('existingRooms', (rooms: { roomId: string, players: Array<string> }[]) => {
+      observer.next(rooms);
+    });
+  });
+}
 }
 
