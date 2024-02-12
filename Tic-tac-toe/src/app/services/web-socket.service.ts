@@ -42,7 +42,7 @@ export class WebSocketService {
  }
 
  // Event handler for when a game starts in a room
- onStartGame(callback: () => void) {
+ onStartGame(callback: (roomId: any, firstPlayer: string) => void) {
    this.webSocket.on('startGame', callback);
  }
 
@@ -51,6 +51,7 @@ export class WebSocketService {
    this.webSocket.on('moveMade', callback);
  }
 
+ // Event handler to request a list of existing rooms
  getRooms(): Observable<{ roomId: string, players: Array<string> }[]> {
   // Emit a request to the server to get the list of existing rooms with player counts
   this.webSocket.emit('getRooms');
@@ -61,6 +62,7 @@ export class WebSocketService {
       observer.next(rooms);
     });
   });
-}
+ }
+
 }
 

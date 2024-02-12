@@ -2,7 +2,7 @@
     <h1 style="font-weight: 900; text-align: center; margin: 15px 0;">Tic-Tac-Toe</h1>
     <div *ngIf="this.game.gameStatus === 0" class="button-container">
         <div class="offline-mode">
-            <button (click)="startGame(false)" mat-raised-button color="accent" class="start-button">Start new game in offline mode</button>
+            <button (click)="startGame()" mat-raised-button color="accent" class="start-button">Start new game in offline mode</button>
         </div>
         <div class="online-mode">
             <button (click)="joinGame(nameText.value)" [disabled]="isButtonDisabled" mat-raised-button color="accent" class="start-button">Start new game in online mode</button>

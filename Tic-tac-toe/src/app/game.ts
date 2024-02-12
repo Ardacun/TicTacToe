@@ -3,9 +3,11 @@ import { Gamestatus } from './gamestatus';
 export class Game {
     gameField: Array<number> = [];
 
-    currentTurn: number;
+    currentTurn: any;
 
     gameStatus: Gamestatus;
+
+    gameOnline : boolean;
 
     winSituationsPlayerOne: Array<Array<number>> = [
         [1, 1, 1, 0, 0, 0, 0, 0, 0],
@@ -33,10 +35,29 @@ export class Game {
         this.gameStatus = Gamestatus.STOP;
         this.gameField = [0, 0, 0, 0, 0, 0, 0, 0, 0];
         this.currentTurn = 0;
+        this.gameOnline = false;
     }
-    gameStart(): void {
+
+    isGameOnline(online: boolean): void {
+        if(online)
+        {
+            this.gameOnline = true;
+        }
+        else
+        {
+            this.gameOnline = false;
+        }
+    }
+    gameStart(firstPlayer?: string): void {
         this.gameStatus = Gamestatus.START;
-        this.currentTurn = this.randomPlayerStart();
+        if(!this.gameOnline)
+        {
+            this.currentTurn = this.randomPlayerStart();
+        }
+        else 
+        {
+            this.currentTurn = firstPlayer; 
+        }
         console.log(this.currentTurn);
         this.gameField = [0, 0, 0, 0, 0, 0, 0, 0, 0];
     }

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Game } from '../game';
 import { WebSocketService } from '../services/web-socket.service';
 
+
 @Component({
   selector: 'app-game',
   standalone: true,
@@ -38,8 +39,8 @@ export class GameComponent implements OnInit{
     if(this.existingRooms.length == 0)
     {
       this.websocketService.joinRoom(name, "");
-      this.websocketService.onStartGame(() => {
-        this.startGame(true);
+      this.websocketService.onStartGame((roomId, firstPlayer) => {
+        this.startGame(roomId, firstPlayer);
       });
     }
     else
@@ -54,22 +55,49 @@ export class GameComponent implements OnInit{
         } 
       }
       this.websocketService.joinRoom(name, room);
-      this.websocketService.onStartGame(() => {
-      this.startGame(true);
+      this.websocketService.onStartGame((roomId, firstPlayer) => {
+      this.startGame(roomId, firstPlayer);
       });
     }
-    
-    
-      
   }
 
-  startGame(online : boolean): void {
+  startGame(roomId?: string, firstPlayer?: string): void {
+    if(roomId == undefined)
+    {    
+    this.game.isGameOnline(false);
     this.game.gameStart();
-    const currentPlayer = 'Current turn: Player ' + this.game.currentTurn + '.';
-    const playerinformation = document.querySelector('.player-information');
-    if(playerinformation){
-      playerinformation.innerHTML = currentPlayer;
     }
+    else
+    {
+      this.game.isGameOnline(true);
+      this.game.gameStart(firstPlayer);
+    }
+    
+    this.websocketService.getRooms().subscribe((rooms: { roomId: string, players: Array<string> }[]) => {
+      this.existingRooms = rooms;
+      let currentPlayer = "";
+      if(!roomId) {
+        currentPlayer = 'Current turn: Player ' + this.game.currentTurn + '.';
+      } else {
+        let name = "";
+        console.log(this.existingRooms);
+        let playerIndex = (this.game.currentTurn === 1) ? 0 : 1;
+        console.log(playerIndex);
+        for (const element of this.existingRooms) {
+          if (element.roomId === roomId) {
+              name = element.players[playerIndex];
+              break;
+          }
+        }
+        currentPlayer = 'Current turn: Player ' + name + '.';
+      }
+      
+      const playerinformation = document.querySelector('.player-information');
+      if(playerinformation){
+        playerinformation.innerHTML = currentPlayer;
+      }
+    });
+    
   }
 
   async clickSubfield(subfield: any) : Promise<void> {
