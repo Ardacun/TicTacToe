@@ -98,8 +98,8 @@ module.exports = (io) => {
         });
         
         // Event handler for when a player makes a move
-        socket.on('makeMove', (roomId, move) => {
-            io.to(roomId).emit('moveMade', move);
+        socket.on('makeMove', (position, currentPlayer, roomId) => {
+            io.to(roomId).emit('moveMade', position, currentPlayer);
         });
 
         // Event handler for when a player disconnects	

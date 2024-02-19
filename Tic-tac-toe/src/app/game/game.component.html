@@ -14,19 +14,19 @@
     <div *ngIf="this.game.gameStatus === 1" class="game-container">
         <div class="gamefield">
             <div class="row">
-                <div (click)="clickSubfield($event)" position="0" class="subfield"></div>
-                <div (click)="clickSubfield($event)" position="1" class="subfield"></div>
-                <div (click)="clickSubfield($event)" position="2" class="subfield"></div>
+                <div (click)="clickSubfield($event, roomId)" position="0" class="subfield"></div>
+                <div (click)="clickSubfield($event, roomId)" position="1" class="subfield"></div>
+                <div (click)="clickSubfield($event, roomId)" position="2" class="subfield"></div>
             </div>
             <div class="row">
-                <div (click)="clickSubfield($event)" position="3" class="subfield"></div>
-                <div (click)="clickSubfield($event)" position="4" class="subfield"></div>
-                <div (click)="clickSubfield($event)" position="5" class="subfield"></div>
+                <div (click)="clickSubfield($event, roomId)" position="3" class="subfield"></div>
+                <div (click)="clickSubfield($event, roomId)" position="4" class="subfield"></div>
+                <div (click)="clickSubfield($event, roomId)" position="5" class="subfield"></div>
             </div>
             <div class="row">
-                <div (click)="clickSubfield($event)" position="6" class="subfield"></div>
-                <div (click)="clickSubfield($event)" position="7" class="subfield"></div>
-                <div (click)="clickSubfield($event)" position="8" class="subfield"></div>
+                <div (click)="clickSubfield($event, roomId)" position="6" class="subfield"></div>
+                <div (click)="clickSubfield($event, roomId)" position="7" class="subfield"></div>
+                <div (click)="clickSubfield($event, roomId)" position="8" class="subfield"></div>
             </div>
         </div>
     </div>

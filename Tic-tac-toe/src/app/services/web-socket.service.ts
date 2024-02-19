@@ -37,8 +37,8 @@ export class WebSocketService {
  }
 
  // Method to make a move in a room
- makeMove(roomId: string, move: any) {
-   this.webSocket.emit('makeMove', roomId, move);
+ makeMove(position: any, currentPlayer: any, roomId: any) {
+   this.webSocket.emit('makeMove', position, currentPlayer, roomId);
  }
 
  // Event handler for when a game starts in a room
@@ -47,7 +47,7 @@ export class WebSocketService {
  }
 
  // Event handler for when a move is made in a room
- onMoveMade(callback: (move: any) => void) {
+ onMoveMade(callback: (position: any, currentPlayer: any) => void) {
    this.webSocket.on('moveMade', callback);
  }
 
